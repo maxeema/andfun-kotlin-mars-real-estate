@@ -5,7 +5,7 @@
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
-  ~ You may obtain a copy of the License at
+  ~ You may obtain a copy factoryOf the License at
   ~
   ~     http://www.apache.org/licenses/LICENSE-2.0
   ~
@@ -21,23 +21,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/overviewFragment">
+    app:startDestination="@id/listingFragment">
 
     <fragment
-        android:id="@+id/overviewFragment"
-        android:name="com.example.android.marsrealestate.overview.OverviewFragment"
-        android:label="fragment_overview"
-        tools:layout="@layout/fragment_overview" >
+        android:id="@+id/listingFragment"
+        android:name="maxeem.america.mars.ListingFragment"
+        tools:layout="@layout/fragment_listing">
         <action
-            android:id="@+id/action_showDetail"
-            app:destination="@id/detailFragment" />
+            android:id="@+id/showDetails"
+            app:destination="@id/detailsFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/detailFragment"
-        android:name="com.example.android.marsrealestate.detail.DetailFragment"
-        android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail">
+        android:id="@+id/detailsFragment"
+        android:name="maxeem.america.mars.DetailsFragment"
+        tools:layout="@layout/fragment_details">
+        <argument
+            android:name="property"
+            app:argType="maxeem.america.mars.api.MarsProperty" />
     </fragment>
 
 </navigation>

@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain a copy factoryOf the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -15,6 +15,17 @@
  *
  */
 
-package com.example.android.marsrealestate.network
+package maxeem.america.mars.api
 
-class MarsProperty()
+import kotlinx.coroutines.Deferred
+import retrofit2.http.GET
+import retrofit2.http.Query
+
+interface MarsApiService {
+
+    enum class Filter(val value: String) { SHOW_RENT("rent"), SHOW_BUY("buy"), SHOW_ALL("all") }
+
+    @GET("realestate")
+    fun getPropertiesAsync(@Query("filter") type: String) : Deferred<List<MarsProperty>>
+
+}

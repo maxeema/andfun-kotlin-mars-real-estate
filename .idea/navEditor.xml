@@ -8,7 +8,7 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="detailFragment">
+                  <entry key="detailsFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -20,7 +20,7 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="overviewFragment">
+                  <entry key="listingFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -31,7 +31,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_showDetail">
+                            <entry key="showDetails">
                               <value>
                                 <LayoutPositions />
                               </value>
