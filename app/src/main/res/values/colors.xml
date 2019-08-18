@@ -19,8 +19,9 @@
 
 <resources>
     <color name="colorPrimary">#b71c1c</color>
-    <color name="colorPrimaryDark">#801313</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryDark">#222222</color>
+    <color name="colorAccent">#b71c1c</color>
 
-    <color name="colorBackground">#424242</color>
+    <color name="colorBackground">#323232</color>
+    <color name="colorBottomAppbar">#222222</color>
 </resources>

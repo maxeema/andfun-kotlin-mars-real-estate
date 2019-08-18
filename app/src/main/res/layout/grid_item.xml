@@ -28,9 +28,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        tools:layout_width="170dp"
         android:layout_height="wrap_content"
-        android:padding="2dp">
+        android:foreground="?android:selectableItemBackground">
 
         <ImageView
             android:id="@+id/image"
@@ -38,13 +37,12 @@
             android:layout_width="0dp"
             android:layout_height="170dp"
             android:adjustViewBounds="true"
-            android:background="?android:selectableItemBackground"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/backgrounds/scenic[13]" />
+            tools:src="@tools:sample/backgrounds/scenic" />
 
         <View
             android:id="@+id/view"

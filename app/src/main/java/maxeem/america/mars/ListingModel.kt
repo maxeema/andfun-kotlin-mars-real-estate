@@ -21,7 +21,7 @@ class ListingModel : ViewModel(), AnkoLogger {
     val hasError  = Transformations.map(_status) { it is MarsApiStatus.Error }
 
     init {
-        retrieveMarsRealEstateProperties(MarsApiService.Filter.SHOW_ALL)
+        retrieveMarsRealEstateProperties(MarsApiService.Filter.SHOW_BUY)
     }
 
     private fun retrieveMarsRealEstateProperties(filter: MarsApiService.Filter) = viewModelScope.launch {

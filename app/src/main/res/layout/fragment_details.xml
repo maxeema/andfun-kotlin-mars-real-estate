@@ -19,6 +19,7 @@
             srcOf="@{ model.property }"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="16dp"
             android:scaleType="centerCrop"
             app:layout_constrainedHeight="true"
             app:layout_constrainedWidth="true"
@@ -26,29 +27,29 @@
             app:layout_constraintHeight_min="200dp"
             app:layout_constraintHeight_percent=".6"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/type"
             tools:src="@tools:sample/backgrounds/scenic" />
 
         <TextView
             android:id="@+id/type"
-            android:text="@{ @string/display_type(model.isRental ? @string/type_rent : @string/type_sale) }"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textSize="39sp"
+            android:text="@{ @string/display_type(model.isRental ? @string/type_rent : @string/type_sale) }"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/type_rent" />
 
         <TextView
             android:id="@+id/price"
-            android:text="@{model.isRental ? @string/display_price_monthly_rental(model.price/10000) : @string/display_price(model.price) }"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textSize="20sp"
+            android:layout_marginTop="16dp"
+            android:text="@{model.isRental ? @string/display_price_monthly_rental(model.price/10000) : @string/display_price(model.price) }"
+            android:textColor="@color/colorAccent"
+            android:textSize="30sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/type"
+            app:layout_constraintTop_toBottomOf="@+id/img"
             tools:text="$100,000" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
