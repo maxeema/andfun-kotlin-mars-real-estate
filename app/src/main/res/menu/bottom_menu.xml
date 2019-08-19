@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/for_sale"
+    <item android:id="@+id/tab_sale"
         android:icon="@drawable/tab_sale"
         android:title="@string/tab_sale" />
-    <item android:id="@+id/call_us"
+    <item android:id="@+id/tab_call"
         android:enabled="false"
         android:title="@string/call_us" />
-    <item android:id="@+id/for_rent"
+    <item android:id="@+id/tab_rent"
         android:icon="@drawable/tab_rent"
         android:title="@string/tab_rent" />
 </menu>

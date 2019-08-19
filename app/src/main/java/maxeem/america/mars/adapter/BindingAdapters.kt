@@ -21,7 +21,6 @@ import android.view.View
 import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -29,8 +28,8 @@ import maxeem.america.mars.R
 import maxeem.america.mars.api.MarsProperty
 
 @BindingAdapter("visibleOn")
-fun View.visibleOn(condition: LiveData<Boolean?>) {
-    visibility = if (condition.value == true) View.VISIBLE else View.INVISIBLE
+fun View.visibleOn(condition: Boolean?) {
+    visibility = if (condition == true) View.VISIBLE else View.INVISIBLE
 }
 
 @BindingAdapter("srcOf")

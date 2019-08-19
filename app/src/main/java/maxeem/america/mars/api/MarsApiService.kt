@@ -23,7 +23,12 @@ import retrofit2.http.Query
 
 interface MarsApiService {
 
-    enum class Filter(val value: String) { SHOW_RENT("rent"), SHOW_BUY("buy"), SHOW_ALL("all") }
+    enum class Filter(val value: String) {
+        BUY("buy"), RENT("rent"), ALL("all");
+        companion object {
+            fun of(v: String) = values().first { it.value == v }
+        }
+    }
 
     @GET("realestate")
     fun getPropertiesAsync(@Query("filter") type: String) : Deferred<List<MarsProperty>>

@@ -9,6 +9,7 @@
         <import type="android.view.View"/>
         <import type="maxeem.america.mars.api.MarsApiStatus"/>
         <variable name="model" type="maxeem.america.mars.ListingModel" />
+        <variable name="busy" type="androidx.databinding.ObservableBoolean" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -29,56 +30,71 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <View android:id="@+id/line"
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorPrimary"/>
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:id="@+id/recycler"
-            dataOf="@{model.properties}"
-            visibleOn="@{model.hasData}"
+            android:id="@+id/refresh"
+            android:enabled="@{ !busy &amp;&amp; model.hasData}"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fadingEdgeLength="45dp"
-            android:requiresFadingEdge="vertical"
-            android:scrollbarStyle="insideOverlay"
-            android:scrollbars="vertical"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
-            tools:itemCount="12"
-            tools:listitem="@layout/grid_item" />
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler"
+                dataOf="@{model.properties}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fadingEdgeLength="45dp"
+                android:requiresFadingEdge="vertical"
+                android:scrollbarStyle="insideOverlay"
+                android:scrollbars="vertical"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:itemCount="12"
+                tools:listitem="@layout/grid_item" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <ImageView
             android:id="@+id/error"
-            visibleOn="@{model.hasError}"
+            visibleOn="@{!busy &amp;&amp; model.hasError}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@{model.status instanceof MarsApiStatus.ConnectionError ? @drawable/ic_connection_error : @drawable/ic_broken_image}"
             tools:src="@drawable/ic_connection_error" />
 
+        <TextView
+            android:id="@+id/msg"
+            visibleOn="@{!busy &amp;&amp; model.hasError}"
+            app:layout_anchor="@id/error" app:layout_anchorGravity="bottom|center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            tools:text="@string/no_connection"
+            android:text="@{ model.status instanceof MarsApiStatus.ConnectionError ? @string/no_connection : @string/some_error }" />
+
         <ImageView
             android:id="@+id/loading"
-            visibleOn="@{model.isLoading}"
+            visibleOn="@{ busy }"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             app:srcCompat="@drawable/ic_loading_icon" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/call_us"
+            android:id="@+id/fab_call"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="8dp"
             android:src="@drawable/fab_call"
             app:layout_anchor="@id/bottom_appbar"
             app:layout_anchorGravity="top"
-            app:useCompatPadding="true"
-            android:clickable="true"/>
+            app:useCompatPadding="true" />
 
         <com.google.android.material.bottomappbar.BottomAppBar
             app:hideOnScroll="true"

@@ -30,4 +30,7 @@
     <string name="call_us">Call us</string>
     <string name="tab_rent">For rent</string>
     <string name="tab_sale">For sale</string>
+    <string name="loading">Loading…</string>
+    <string name="no_connection">No connection. Tap to retry.</string>
+    <string name="some_error">An error occurred. Tap to retry.</string>
 </resources>

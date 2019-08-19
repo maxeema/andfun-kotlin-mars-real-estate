@@ -1,6 +1,7 @@
 package maxeem.america.mars
 
 import androidx.lifecycle.*
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import maxeem.america.mars.api.MarsApi
 import maxeem.america.mars.api.MarsApiService
@@ -16,12 +17,13 @@ class ListingModel : ViewModel(), AnkoLogger {
     private val _status = MutableLiveData<MarsApiStatus?>()
     val status : LiveData<MarsApiStatus?> = _status
 
-    val isLoading = Transformations.map(_status) { it is MarsApiStatus.Loading }
     val hasData   = Transformations.map(_status) { it is MarsApiStatus.Success }
     val hasError  = Transformations.map(_status) { it is MarsApiStatus.Error }
 
+    private var job : Job? = null
+
     init {
-        retrieveMarsRealEstateProperties(MarsApiService.Filter.SHOW_BUY)
+        retrieve(Conf.filter)
     }
 
     private fun retrieveMarsRealEstateProperties(filter: MarsApiService.Filter) = viewModelScope.launch {
@@ -35,9 +37,15 @@ class ListingModel : ViewModel(), AnkoLogger {
         }.onFailure { err ->
             _status.value = MarsApiStatus.Error.of(err)
         }
+    }.apply {
+        job = this
+        invokeOnCompletion {
+            if (this == job)
+                job = null
+        }
     }
 
-    fun updateFilter(filter: MarsApiService.Filter) {
+    fun retrieve(filter: MarsApiService.Filter) {
         retrieveMarsRealEstateProperties(filter)
     }
 
