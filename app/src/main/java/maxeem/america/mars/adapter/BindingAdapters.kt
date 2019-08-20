@@ -17,15 +17,25 @@
 
 package maxeem.america.mars.adapter
 
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import maxeem.america.mars.R
 import maxeem.america.mars.api.MarsProperty
+import org.jetbrains.anko.withAlpha
 
 @BindingAdapter("visibleOn")
 fun View.visibleOn(condition: Boolean?) {
@@ -36,6 +46,14 @@ fun View.visibleOn(condition: Boolean?) {
 fun ImageView.imageFrom(prop: MarsProperty?) = prop?.also {
     Glide.with(context)
         .load(prop.imgSrcUrl.toUri().buildUpon().scheme("https").build())
+            .listener(object: RequestListener<Drawable> {
+                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean) = false
+                override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                    if (resource is BitmapDrawable) // make Mars pics more Mars
+                        resource.colorFilter = PorterDuffColorFilter(Color.RED.withAlpha(0x22), PorterDuff.Mode.DARKEN)
+                    return false
+                }
+            })
         .apply(RequestOptions()
             .placeholder(R.drawable.ic_loading_icon)
             .error(R.drawable.ic_broken_image))
