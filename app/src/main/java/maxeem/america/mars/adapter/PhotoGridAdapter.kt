@@ -14,7 +14,7 @@ import maxeem.america.mars.databinding.GridItemBinding
 class PhotoGridAdapter : ListAdapter<MarsProperty, PhotoGridAdapter.MarsPropertyViewHolder>(DiffCallback) {
 
     companion object DiffCallback : DiffUtil.ItemCallback<MarsProperty>() {
-        override fun areItemsTheSame(oldItem: MarsProperty, newItem: MarsProperty)    = oldItem === newItem
+        override fun areItemsTheSame(oldItem: MarsProperty, newItem: MarsProperty) = oldItem.id == newItem.id
         override fun areContentsTheSame(oldItem: MarsProperty, newItem: MarsProperty) = oldItem == newItem
     }
 
