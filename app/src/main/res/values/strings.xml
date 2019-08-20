@@ -16,7 +16,7 @@
   -->
 
 <resources>
-    <string name="app_name">Mars</string>
+    <string name="app_name">Mars Realty</string>
     <string name="about">About</string>
     <string name="show_all">All sites</string>
     <string name="show_rent">Rent</string>
