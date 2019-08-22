@@ -26,6 +26,7 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
+                app:title="@string/app_title"
                 app:layout_scrollFlags="enterAlways|scroll|snap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
