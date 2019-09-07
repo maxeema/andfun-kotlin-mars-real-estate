@@ -27,7 +27,7 @@
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
-                app:title="@string/app_title"
+                app:title="@string/app_name"
                 style="@style/Widget.MaterialComponents.Toolbar.Surface"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
                 app:menu="@menu/main_menu"
