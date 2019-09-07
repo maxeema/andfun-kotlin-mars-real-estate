@@ -27,18 +27,6 @@ class DetailsModel(marsProperty: MarsProperty) : BaseModel() {
     val price    = property.map { it.price }
     val isRental = property.map { it.isRental }
     
-    //
-    private val mockDesc1 = R.string.for_rent_sample1.asString()
-    private val mockDesc2 = R.string.for_rent_sample2.asString()
-            
-    private var mockDesc : String? = null
-    private var descFor : MarsProperty? = null
-    val description = property.map { 
-        if (descFor != it) {
-            descFor = it
-            mockDesc = if (mockDesc == mockDesc1) mockDesc2 else mockDesc1
-        }
-        mockDesc
-    }
+    val description = R.string.mock_description.asString()
 
 }

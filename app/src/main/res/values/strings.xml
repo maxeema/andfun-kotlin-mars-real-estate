@@ -46,7 +46,7 @@
     <string name="no_connection">No connection. Tap to retry.</string>
     <string name="some_error">An error occurred. Tap to retry.</string>
 
-    <string name="for_rent_sample1">
+    <string name="mock_description">
         <![CDATA[
         The site is located on Peterwood Way, which is accessed off Beddington Farm Road which connects with the A23 Purley Way. The A23 provides swift access to Central London approximately 10 miles to the north and the M25/M23 interchange (Junction 7) approximately 9 miles to the south.
         <br/><br/>
@@ -65,11 +65,6 @@
         <br/><br/>
         Use:<br/>
         It is understood that the land can be used for storage and car parking. Further information available, with alternative uses considered.
-        ]]>
-    </string>
-    <string name="for_rent_sample2">
-        <![CDATA[
-            Description 2
         ]]>
     </string>
     <string name="action_order">Order</string>
