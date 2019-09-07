@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <dimen name="snackbar_margin_horizontal">16dp</dimen>
-    <dimen name="snackbar_margin_vertical">12dp</dimen>
+    <dimen name="snackbar_margin_vertical">16dp</dimen>
+    <dimen name="snackbar_margin_horizontal">12dp</dimen>
+    <dimen name="text_item">14sp</dimen>
+    <dimen name="text_small">16sp</dimen>
+    <dimen name="text">18sp</dimen>
+    <dimen name="text_large">20sp</dimen>
+    <dimen name="text_name">36sp</dimen>
+
+    <dimen name="author_translation_y">110sp</dimen>
 </resources>

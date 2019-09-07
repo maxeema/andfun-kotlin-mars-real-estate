@@ -1,9 +1,11 @@
-package maxeem.america.mars
+package maxeem.america.mars.fragment
 
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import maxeem.america.mars.misc.hash
+import maxeem.america.mars.misc.timeMillis
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 

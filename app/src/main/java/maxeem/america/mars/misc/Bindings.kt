@@ -15,7 +15,7 @@
  *
  */
 
-package maxeem.america.mars.adapter
+package maxeem.america.mars.misc
 
 import android.graphics.Color
 import android.graphics.PorterDuff
@@ -24,6 +24,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -34,7 +35,10 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import maxeem.america.mars.R
+import maxeem.america.mars.adapter.PhotoGridAdapter
 import maxeem.america.mars.api.MarsProperty
+import maxeem.america.mars.app
+import org.jetbrains.anko.info
 import org.jetbrains.anko.withAlpha
 
 @BindingAdapter("visibleOn")
@@ -42,8 +46,14 @@ fun View.visibleOn(condition: Boolean?) {
     visibility = if (condition == true) View.VISIBLE else View.INVISIBLE
 }
 
+@BindingAdapter("textHtml")
+fun TextView.textHtml(str: String) {
+    text = str.fromHtml()
+}
+
 @BindingAdapter("srcOf")
-fun ImageView.imageFrom(prop: MarsProperty?) = prop?.also {
+fun ImageView.srcOf(prop: MarsProperty?) = prop?.also {
+    app.info("srcOf ${prop.imgSrcUrl}")
     Glide.with(context)
         .load(prop.imgSrcUrl.toUri().buildUpon().scheme("https").build())
             .listener(object: RequestListener<Drawable> {

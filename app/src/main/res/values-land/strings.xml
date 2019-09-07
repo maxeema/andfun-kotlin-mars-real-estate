@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ Copyright 2018, The Android Open Source Project
   ~
@@ -18,18 +16,10 @@
   -->
 
 <resources>
-    <color name="background">#323232</color>
-
-    <color name="primary">#b71c1c</color>
-    <color name="primaryDark">#222222</color>
-    <color name="primaryVariant">#7f0000</color>
-    <color name="onPrimary">#ffffff</color>
-    <color name="accent">#00B8D4</color>
-    <color name="secondary">#f4511e</color>
-    <color name="secondaryVariant">#ff844c</color>
-    <color name="onSecondary">#000000</color>
-
-    <color name="appbar_scrim">#66000000</color>
-
-    <color name="description">#929292</color>
+    <string name="app_description" formatted="false">
+        <![CDATA[
+            Made by taking <a href="https://www.udacity.com/course/developing-android-apps-with-kotlin--ud9012">Udacity course</a>.
+            App <a href="https://github.com/maxeema/andfun-kotlin-mars-real-estate/tree/work">GitHub page</a>.
+        ]]>
+    </string>
 </resources>

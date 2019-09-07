@@ -3,12 +3,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ListingFragment">
+    tools:context=".fragment.ListingFragment">
 
     <data>
         <import type="android.view.View"/>
         <import type="maxeem.america.mars.api.MarsApiStatus"/>
-        <variable name="model" type="maxeem.america.mars.ListingModel" />
+        <variable name="model" type="maxeem.america.mars.model.ListingModel" />
         <variable name="busy" type="androidx.databinding.ObservableBoolean" />
     </data>
 
@@ -20,33 +20,32 @@
         app:statusBarBackground="@null">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:theme="@style/AppbarTheme"
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 app:title="@string/app_title"
-                app:layout_scrollFlags="enterAlways|scroll|snap"
+                style="@style/Widget.MaterialComponents.Toolbar.Surface"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                app:menu="@menu/main_menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorPrimary"/>
 
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:id="@+id/refresh"
-            android:enabled="@{ !busy &amp;&amp; model.hasData}"
+            enabled="@{ !busy &amp;&amp; model.hasData }"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler"
-                dataOf="@{model.properties}"
+                dataOf="@{ model.properties }"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fadingEdgeLength="45dp"
@@ -66,8 +65,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@{model.status instanceof MarsApiStatus.ConnectionError ? @drawable/ic_connection_error : @drawable/ic_broken_image}"
-            tools:src="@drawable/ic_connection_error" />
+            imageDrawable="@{model.status instanceof MarsApiStatus.ConnectionError ? @drawable/ic_connection_error : @drawable/ic_broken_image}"
+            tools:srcCompat="@drawable/ic_connection_error" />
 
         <TextView
             android:id="@+id/msg"
@@ -87,31 +86,14 @@
             android:layout_gravity="center"
             app:srcCompat="@drawable/ic_loading_icon" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_call"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:elevation="8dp"
-            android:src="@drawable/fab_call"
-            app:layout_anchor="@id/bottom_appbar"
-            app:layout_anchorGravity="top"
-            app:useCompatPadding="true" />
-
-        <com.google.android.material.bottomappbar.BottomAppBar
-            app:hideOnScroll="true"
-            app:backgroundTint="@color/colorBottomAppbar"
-            android:id="@+id/bottom_appbar"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+            android:theme="@style/BottomNavTheme"
+            android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom">
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottom_nav"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:menu="@menu/bottom_menu"/>
-
-        </com.google.android.material.bottomappbar.BottomAppBar>
+            android:layout_gravity="bottom"
+            app:menu="@menu/tabs"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

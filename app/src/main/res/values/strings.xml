@@ -16,22 +16,61 @@
   -->
 
 <resources>
-    <string name="app_name">Mars</string>
-    <string name="app_title">Mars Realty</string>
+    <string name="app_name">Mars Realty</string>
+    <string name="app_title">Mars</string>
+    <string name="app_author">© Maxeem America, 2019</string>
+    <string name="app_description" formatted="false">
+        <![CDATA[
+            Made by taking <a href="https://www.udacity.com/course/developing-android-apps-with-kotlin--ud9012">Udacity course</a>
+            <br/><br/>
+            App <a href="https://github.com/maxeema/andfun-kotlin-mars-real-estate/tree/work">GitHub page</a>
+        ]]>
+    </string>
+    <string name="author_email">Maxeem.America@gmail.com</string>
+    <string name="email_subject">Hello Max! From \"%s\" app.</string>
+    <string name="app_on_google_play">See on Google Play</string>
     <string name="about">About</string>
-    <string name="show_all">All sites</string>
-    <string name="show_rent">Rent</string>
-    <string name="show_buy">Buy</string>
+    <string name="details">Details</string>
+
+    <string name="tab_all">All</string>
+    <string name="tab_rent">For rent</string>
+    <string name="tab_sale">For sale</string>
+
     <string name="type_rent">Rent</string>
     <string name="type_sale">Sale</string>
     <string name="display_type">For %s</string>
     <string name="display_price_rental">$%,.0f</string>
-    <string name="display_price_monthly_rental">$%,.0f/month</string>
+    <string name="display_price_monthly_rental">$%,.0f / month</string>
     <string name="display_price">$%,.0f</string>
-    <string name="call_us">Call us</string>
-    <string name="tab_rent">For rent</string>
-    <string name="tab_sale">For sale</string>
     <string name="loading">Loading…</string>
     <string name="no_connection">No connection. Tap to retry.</string>
     <string name="some_error">An error occurred. Tap to retry.</string>
+
+    <string name="for_rent_sample1">
+        <![CDATA[
+        The site is located on Peterwood Way, which is accessed off Beddington Farm Road which connects with the A23 Purley Way. The A23 provides swift access to Central London approximately 10 miles to the north and the M25/M23 interchange (Junction 7) approximately 9 miles to the south.
+        <br/><br/>
+        The immediate area is home to a wide range of occupiers, including: Asda, ikea, Makro, Robins & Day Vauxhall, Wickes, McDonalds, Decathlon, Valley Park Retail Area, Northgate Vehicle Hire, tk Maxx, Sainsbury\'s and many more.
+        <br/><br/>
+        Accommodation:<br/>
+        The self-contained yard benefits from hard surfacing and a secure gated & self contained entrance off Peterwood Way with a total size of 0.42 acres.
+        <br/><br/>
+        Given the layout the site would be suitable for a number of different uses.
+        <br/><br/>
+        The site has drainage, and power can be supplied at a further cost.
+        <br/><br/>
+        Size:<br/>
+        The site has the following approximate areas:<br/>
+        18,209sq.ft 0.42 Acres
+        <br/><br/>
+        Use:<br/>
+        It is understood that the land can be used for storage and car parking. Further information available, with alternative uses considered.
+        ]]>
+    </string>
+    <string name="for_rent_sample2">
+        <![CDATA[
+            Description 2
+        ]]>
+    </string>
+    <string name="action_order">Order</string>
 </resources>
