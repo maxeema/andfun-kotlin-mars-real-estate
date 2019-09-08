@@ -31,6 +31,10 @@ class ListingFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         info("$hash $timeMillis onCreateView, savedInstanceState: $savedInstanceState")
+        
+        if (savedInstanceState != null && model.status.value != MarsApiStatus.Loading)
+            busy.set(false)
+
         binding = FragmentListingBinding.inflate(inflater, container, false)
 
         binding.lifecycleOwner = viewLifecycleOwner
@@ -60,9 +64,15 @@ class ListingFragment : BaseFragment() {
                     findNavController().navigate(ListingFragmentDirections.showDetails(property))
             }
         }
-        model.status.observe(viewLifecycleOwner) {
-            it ?: return@observe
-            if (it == MarsApiStatus.Loading)
+        model.properties.observe(viewLifecycleOwner) { properties ->
+            info("observe properties?.size: ${properties?.size}")
+            properties ?: return@observe
+        }
+        model.statusEvent.observe(viewLifecycleOwner) { status ->
+            info("observe statusEvent: $status")
+            status ?: return@observe
+            model.consumeStatusEvent()
+            if (status == MarsApiStatus.Loading)
                 return@observe
             viewLifecycleOwner.delayed(500) {
                 busy.set(false)

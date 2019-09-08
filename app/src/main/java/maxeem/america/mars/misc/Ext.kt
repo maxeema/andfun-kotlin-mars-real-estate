@@ -4,6 +4,8 @@ import android.view.View
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import maxeem.america.mars.app
 
@@ -31,3 +33,6 @@ fun Fragment.materialAlert(msg: CharSequence, code: (MaterialAlertDialogBuilder.
         }.show()
 
 fun View.onClick(l: ()->Unit) = setOnClickListener { l() }
+
+fun <T> MutableLiveData<T>.asImmutable() = this as LiveData<T>
+fun <T> LiveData<T>.asMutable()          = this as MutableLiveData<T>
