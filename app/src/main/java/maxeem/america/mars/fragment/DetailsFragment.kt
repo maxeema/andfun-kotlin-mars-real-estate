@@ -9,6 +9,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.updateMargins
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.NavigationUI
 import maxeem.america.mars.databinding.FragmentDetailsBinding
 import maxeem.america.mars.misc.compatActivity
@@ -22,6 +23,7 @@ class DetailsFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?)
         = FragmentDetailsBinding.inflate(inflater).apply {
             info("$hash $timeMillis onCreateView, savedInstanceState: $savedInstanceState")
+            info(" -> nav args: ${navArgs<DetailsFragmentArgs>().value}")
             this.lifecycleOwner = viewLifecycleOwner
             this.model = viewModels<DetailsModel> { DetailsModel.factoryOf( DetailsFragmentArgs.fromBundle(arguments!!).property) }.value
             compatActivity()?.apply {

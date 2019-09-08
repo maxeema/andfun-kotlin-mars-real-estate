@@ -18,6 +18,12 @@ class PhotoGridAdapter : ListAdapter<MarsProperty, PhotoGridAdapter.MarsProperty
         override fun areContentsTheSame(oldItem: MarsProperty, newItem: MarsProperty) = oldItem == newItem
     }
 
+    init {
+        setHasStableIds(true)
+    }
+
+    override fun getItemId(position: Int) = getItem(position)?.id?.toLong() ?: RecyclerView.NO_ID
+
     var onClick : View.OnClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =

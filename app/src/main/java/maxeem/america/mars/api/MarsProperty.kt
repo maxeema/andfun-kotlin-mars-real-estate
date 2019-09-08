@@ -23,7 +23,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class MarsProperty(
-            val id: String,
+            val id: Long,
             val type: String,
             val price: Double,
             @Json(name = "img_src") val imgSrcUrl: String) : Parcelable
