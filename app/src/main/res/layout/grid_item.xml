@@ -44,6 +44,20 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/demo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:alpha=".8"
+            android:text="@{ maxeem.america.mars.MarsApp.BUILD }"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/image"
+            tools:text="DEMO" />
+
         <View
             android:id="@+id/view"
             android:layout_width="0dp"

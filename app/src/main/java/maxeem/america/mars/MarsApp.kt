@@ -11,6 +11,8 @@ class MarsApp : Application(), AnkoLogger {
     companion object {
         private var initializer : (()-> MarsApp)? = null
         val instance by lazy { requireNotNull(initializer).apply{ initializer = null }()  }
+        @JvmStatic
+        val BUILD by lazy { app.packageInfo.versionName.substringAfter('-').toUpperCase() }
     }
 
     init { initializer = { this } }
