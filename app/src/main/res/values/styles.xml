@@ -27,15 +27,6 @@
         <item name="colorSecondary">@color/secondary</item>
         <item name="colorSecondaryVariant">@color/secondaryVariant</item>
         <item name="colorOnSecondary">@color/onSecondary</item>
-        <item name="snackbarStyle">@style/snackbar</item>
-    </style>
-
-    <style name="snackbar" parent="Widget.MaterialComponents.Snackbar">
-        <item name="android:layout_margin"/>
-        <item name="android:layout_marginTop">@dimen/snackbar_margin_vertical</item>
-        <item name="android:layout_marginBottom">@dimen/snackbar_margin_vertical</item>
-        <item name="android:layout_marginStart">@dimen/snackbar_margin_horizontal</item>
-        <item name="android:layout_marginEnd">@dimen/snackbar_margin_horizontal</item>
     </style>
 
     <style name="AppbarTheme" parent="AppTheme">
