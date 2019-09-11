@@ -97,12 +97,14 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:text="@{ model.isRental ? @string/display_price_monthly_rental(model.price/10000) : @string/display_price(model.price) }"
+                    textHtml="@{ model.isRental ? @string/display_price_monthly_rental(model.price/10000) : @string/display_price(model.price) }"
                     android:textColor="@color/primary"
                     app:autoSizeTextType="uniform"
                     tools:text="$100,000" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/order"
+                    onClickNotImplemented="@{ null }"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -141,6 +143,8 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
+            tooltipCompat="@{ @string/call_to_know_more }"
+            onClickNotImplemented="@{ null }"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/fab_call"

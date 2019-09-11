@@ -25,6 +25,7 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.TooltipCompat
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -38,6 +39,7 @@ import maxeem.america.mars.R
 import maxeem.america.mars.adapter.PhotoGridAdapter
 import maxeem.america.mars.api.MarsProperty
 import maxeem.america.mars.app
+import org.jetbrains.anko.design.longSnackbar
 import org.jetbrains.anko.info
 import org.jetbrains.anko.withAlpha
 
@@ -73,4 +75,18 @@ fun ImageView.srcOf(prop: MarsProperty?) = prop?.also {
 @BindingAdapter("dataOf")
 fun RecyclerView.dataOf(data: List<MarsProperty>?) = data?.also {
     (adapter as PhotoGridAdapter).submitList(data)
+}
+
+@BindingAdapter("tooltipCompat")
+fun View.tooltipCompat(str: String) {
+    TooltipCompat.setTooltipText(this, str)
+}
+
+@BindingAdapter("onClickNotImplemented")
+fun View.onClickNotImplemented(msg: CharSequence?) {
+    onClick {
+        longSnackbar(R.string.not_implemented).apply {
+            anchorView = this@onClickNotImplemented
+        }
+    }
 }

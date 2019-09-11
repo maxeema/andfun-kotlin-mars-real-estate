@@ -40,7 +40,7 @@
     <string name="type_sale">Sale</string>
     <string name="display_type">For %s</string>
     <string name="display_price_rental">$%,.0f</string>
-    <string name="display_price_monthly_rental">$%,.0f / month</string>
+    <string name="display_price_monthly_rental"><![CDATA[$%,.0f / <small>month</small>]]></string>
     <string name="display_price">$%,.0f</string>
     <string name="loading">Loading…</string>
     <string name="no_connection">No connection. Tap to retry.</string>
@@ -68,4 +68,6 @@
         ]]>
     </string>
     <string name="action_order">Order</string>
+    <string name="call_to_know_more">Call to know more</string>
+    <string name="not_implemented">Action is not implemented</string>
 </resources>
