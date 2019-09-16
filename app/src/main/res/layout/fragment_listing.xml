@@ -6,10 +6,11 @@
     tools:context=".fragment.ListingFragment">
 
     <data>
-        <import type="android.view.View"/>
-        <import type="maxeem.america.mars.api.MarsApiStatus"/>
-        <variable name="model" type="maxeem.america.mars.model.ListingModel" />
+        <import type="android.view.View" />
+        <import type="maxeem.america.mars.misc.Util" />
+        <import type="maxeem.america.mars.api.MarsApiStatus" />
         <variable name="busy" type="androidx.databinding.ObservableBoolean" />
+        <variable name="model" type="maxeem.america.mars.model.ListingModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -20,23 +21,32 @@
         app:statusBarBackground="@null">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:theme="@style/AppbarTheme"
             android:id="@+id/appbar"
+            app:elevation="0dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.MaterialToolbar
+                app:popupTheme="@style/PrimaryElevationOverlay"
                 android:id="@+id/toolbar"
-                app:title="@string/app_name"
-                style="@style/Widget.MaterialComponents.Toolbar.Surface"
-                app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:menu="@menu/main_menu"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                app:layout_scrollFlags="scroll|snap|enterAlways"
+                app:titleTextColor="?colorPrimary"
+                title="@{ Util.fromHtml(@string/app_name_bold(@color/primary, @color/secondary)) }"
+                tools:title="@string/app_name"
+                subtitle="@{ Util.fromHtml(@string/app_subname_bold(@color/primary)) }"
+                tools:subtitle="RED Planet best deals"
+                app:subtitleTextColor="?colorSecondary"
+                app:subtitleTextAppearance="?textAppearanceOverline"
+                app:menu="@menu/main_menu" />
 
-            <View android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/primaryVariant"/>
+            <View
+                android:background="@drawable/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -59,7 +69,7 @@
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="2"
                 tools:itemCount="12"
-                tools:listitem="@layout/grid_item" />
+                tools:listitem="@layout/property_item" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -92,7 +102,8 @@
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
-            android:theme="@style/BottomNavTheme"
+            android:theme="@style/SecondaryAsPrimary"
+            app:elevation="0dp"
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

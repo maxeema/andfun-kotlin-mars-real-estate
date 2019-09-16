@@ -36,7 +36,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import maxeem.america.mars.R
-import maxeem.america.mars.adapter.PhotoGridAdapter
+import maxeem.america.mars.adapter.MarsPropertiesAdapter
 import maxeem.america.mars.api.MarsProperty
 import maxeem.america.mars.app
 import org.jetbrains.anko.design.longSnackbar
@@ -53,17 +53,24 @@ fun TextView.textHtml(str: String) {
     text = str.fromHtml()
 }
 
+@BindingAdapter("propertyId")
+fun TextView.propertyId(property: MarsProperty) {
+    text = "№${property.id}"
+}
+
 @BindingAdapter("srcOf")
 fun ImageView.srcOf(prop: MarsProperty?) = prop?.also {
     app.info("srcOf ${prop.imgSrcUrl}")
     Glide.with(context)
         .load(prop.imgSrcUrl.toUri().buildUpon().scheme("https").build())
             .listener(object: RequestListener<Drawable> {
-                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean) = false
-                override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean) = false.apply {
+                    scaleType = ImageView.ScaleType.CENTER
+                }
+                override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean) = false.apply {
+                    scaleType = ImageView.ScaleType.CENTER_CROP
                     if (resource is BitmapDrawable) // make Mars pics more Mars
                         resource.colorFilter = PorterDuffColorFilter(Color.RED.withAlpha(0x22), PorterDuff.Mode.DARKEN)
-                    return false
                 }
             })
         .apply(RequestOptions()
@@ -74,7 +81,7 @@ fun ImageView.srcOf(prop: MarsProperty?) = prop?.also {
 
 @BindingAdapter("dataOf")
 fun RecyclerView.dataOf(data: List<MarsProperty>?) = data?.also {
-    (adapter as PhotoGridAdapter).submitList(data)
+    (adapter as MarsPropertiesAdapter).submitList(data)
 }
 
 @BindingAdapter("tooltipCompat")

@@ -10,6 +10,9 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
 open class BaseFragment : Fragment(), AnkoLogger {
+
+    val viewOwner get() = runCatching { viewLifecycleOwner }.getOrNull()
+
     override fun onCreate(savedInstanceState: Bundle?) { super.onCreate(savedInstanceState)
         info("$hash $timeMillis onCreate, savedInstanceState: $savedInstanceState")
     }

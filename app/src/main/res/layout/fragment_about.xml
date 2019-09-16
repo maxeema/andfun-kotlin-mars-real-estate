@@ -21,6 +21,7 @@
 
     <data>
         <import type="android.text.method.LinkMovementMethod"/>
+        <import type="maxeem.america.mars.misc.Util"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,9 +39,11 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 app:title="@string/about"
-                android:background="@color/primaryDark"
+                app:navigationIcon="?homeAsUpIndicator"
+                android:background="?colorPrimaryDark"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"/>
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -57,7 +60,7 @@
             app:layout_constraintHeight_percent=".4"
             app:layout_constraintStart_toStartOf="@+id/well_start"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_bias="0.065"
             app:srcCompat="@drawable/ic_logo_about" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -91,11 +94,11 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/author"
             style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:textAppearance="?textAppearanceSubtitle2"
+            android:textColor="?colorPrimary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:rotation="90"
-            android:textColor="@color/primary"
-            android:textSize="@dimen/text_small"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/well_end2"
             app:layout_constraintTop_toTopOf="parent"
@@ -106,10 +109,11 @@
             android:id="@+id/name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
+            tools:text="@string/app_name"
+            android:text="@{ Util.fromHtml(@string/app_name_bold(@color/primary, @color/secondary)) }"
             android:textAlignment="center"
             android:textColor="@color/secondary"
-            android:textSize="@dimen/text_name"
+            style="?textAppearanceHeadline4"
             app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toBottomOf="@+id/logo"
             app:layout_constraintEnd_toStartOf="@+id/well_end2"
@@ -119,28 +123,30 @@
 
         <TextView
             android:id="@+id/version"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:alpha=".5"
-            android:textSize="@dimen/text"
-            app:layout_constrainedHeight="true"
-            app:layout_constrainedWidth="true"
+            android:text="@{ maxeem.america.mars.MarsApp.VERSION }"
+            android:textAppearance="?textAppearanceCaption"
             app:layout_constraintHeight_default="wrap"
+            app:layout_constraintBottom_toTopOf="@+id/name"
+            app:layout_constraintEnd_toEndOf="@+id/name"
             app:layout_constraintStart_toEndOf="@+id/name"
             app:layout_constraintTop_toTopOf="@+id/name"
-            app:layout_constraintWidth_default="wrap"
             tools:text="0.1" />
 
         <TextView
             android:id="@+id/description"
             movementMethod="@{ LinkMovementMethod.getInstance() }"
             textHtml="@{ @string/app_description }"
+            android:textAppearance="?textAppearanceBody2"
+            android:textColorLink="@color/accent"
+            android:textColor="?android:textColorSecondary"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
             android:textAlignment="center"
-            android:textSize="@dimen/text_small"
             app:layout_constrainedHeight="true"
             app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toStartOf="@+id/well_end2"
@@ -159,19 +165,6 @@
             app:layout_constraintEnd_toStartOf="@+id/well_end"
             app:layout_constraintStart_toStartOf="@+id/well_start"
             app:layout_constraintTop_toBottomOf="@+id/description" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/demo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:alpha=".3"
-            android:text="@{ maxeem.america.mars.MarsApp.BUILD }"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="DEMO" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import maxeem.america.mars.R
 import maxeem.america.mars.app
 import maxeem.america.mars.databinding.FragmentAboutBinding
-import maxeem.america.mars.misc.*
-import maxeem.america.mars.packageInfo
+import maxeem.america.mars.misc.asString
+import maxeem.america.mars.misc.hash
+import maxeem.america.mars.misc.onClick
+import maxeem.america.mars.misc.timeMillis
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
@@ -22,9 +23,8 @@ class AboutFragment : Fragment(), AnkoLogger {
         = FragmentAboutBinding.inflate(inflater, container, false).apply {
             info("$hash $timeMillis onCreateView, savedInstanceState: $savedInstanceState")
             lifecycleOwner = viewLifecycleOwner
-            compatActivity()?.apply {
-                setSupportActionBar(toolbar)
-                NavigationUI.setupActionBarWithNavController(this, findNavController())
+            toolbar.setNavigationOnClickListener {
+                findNavController().navigate(AboutFragmentDirections.actionAboutFragmentPop())
             }
             author.apply {
                 val mail = Intent(Intent.ACTION_SENDTO)
@@ -36,7 +36,6 @@ class AboutFragment : Fragment(), AnkoLogger {
                     })
                 }
             }
-            version.text = app.packageInfo.versionName.substringBefore('-')
             googlePlay.onClick {
                 Intent(Intent.ACTION_VIEW).apply {
                     data = "https://play.google.com/store/apps/details?id=${app.packageName}".toUri()

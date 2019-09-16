@@ -13,9 +13,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import maxeem.america.mars.R
-import maxeem.america.mars.adapter.PhotoGridAdapter
+import maxeem.america.mars.adapter.MarsPropertiesAdapter
 import maxeem.america.mars.api.MarsApiStatus
 import maxeem.america.mars.api.MarsProperty
+import maxeem.america.mars.app
 import maxeem.america.mars.databinding.FragmentListingBinding
 import maxeem.america.mars.misc.*
 import maxeem.america.mars.model.ListingModel
@@ -52,13 +53,14 @@ class ListingFragment : BaseFragment() {
         binding.tabs.selectedItemId = Util.filterToTab(Conf.filter)
 
         binding.refresh.setOnRefreshListener { fetch() }
+        binding.recycler.setHasFixedSize(true)
         binding.recycler.addItemDecoration(object: RecyclerView.ItemDecoration() {
-            val gap = context!!.dip(2); val spanCount = (binding.recycler.layoutManager as GridLayoutManager).spanCount
+            val gap = app.dip(2); val spanCount = (binding.recycler.layoutManager as GridLayoutManager).spanCount
             override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
                 outRect.set(if (binding.recycler.getChildAdapterPosition(view)%spanCount != 0) gap else 0, gap, 0, 0)
             }
         })
-        binding.recycler.adapter = PhotoGridAdapter().apply {
+        binding.recycler.adapter = MarsPropertiesAdapter().apply {
             onClick = View.OnClickListener { val property = it.getTag(R.id.mars_property_tag) as MarsProperty
                 if (!busy.get())
                     findNavController().navigate(ListingFragmentDirections.showDetails(property))
@@ -74,7 +76,7 @@ class ListingFragment : BaseFragment() {
             model.consumeStatusEvent()
             if (status == MarsApiStatus.Loading)
                 return@observe
-            viewLifecycleOwner.delayed(500) {
+            viewOwner?.delayed(500) {
                 busy.set(false)
                 binding.refresh.isRefreshing = false
                 binding.refresh.isEnabled = true
@@ -83,7 +85,7 @@ class ListingFragment : BaseFragment() {
         }
         binding.error.onClick { fetch() }
         binding.tabs.setOnNavigationItemSelectedListener { fetch(it.itemId) }
-        binding.tabs.setOnNavigationItemReselectedListener {  /*ingore re-selecting */ }
+        binding.tabs.setOnNavigationItemReselectedListener { /*ingore re-selecting */ }
 
         return binding.root
     }
@@ -93,10 +95,10 @@ class ListingFragment : BaseFragment() {
         //
         busy.set(true)
         Conf.filter = Util.tabToFilter(tab)
-        (binding.recycler.adapter as PhotoGridAdapter).submitList(emptyList())
-        viewLifecycleOwner.delayed(300) { viewOwner ->
+        (binding.recycler.adapter as MarsPropertiesAdapter).submitList(emptyList())
+        viewLifecycleOwner.delayed(300) {
             binding.recycler.itemAnimator?.isRunning {
-                viewOwner.doOnLifecycle { model.retrieve(Conf.filter) }
+                viewOwner?.doOnLifecycle { model.retrieve(Conf.filter) }
             }
         }
         return true

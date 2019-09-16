@@ -18,18 +18,25 @@
   -->
 
 <resources>
-    <color name="background">#323232</color>
+
+    <color name="windowBackground">#2f2f2f</color>
 
     <color name="primary">#b71c1c</color>
-    <color name="primaryDark">#222222</color>
     <color name="primaryVariant">#7f0000</color>
     <color name="onPrimary">#ffffff</color>
-    <color name="accent">#00B8D4</color>
-    <color name="secondary">#f4511e</color>
-    <color name="secondaryVariant">#ff844c</color>
+
+    <color name="secondary">#f86734</color>
+    <color name="secondaryVariant">#ff9861</color>
     <color name="onSecondary">#000000</color>
 
-    <color name="appbar_scrim">#66000000</color>
+    <color name="primaryDark">#212121</color>
+    <color name="accent">#00B8D4</color>
 
-    <color name="description">#929292</color>
+    <color name="scrim">#66000000</color>
+
+    <color name="money">#00C853</color>
+    <color name="date">#727272</color>
+    <color name="description">#c2c2c2</color>
+    <color name="itemBg">#363636</color>
+
 </resources>

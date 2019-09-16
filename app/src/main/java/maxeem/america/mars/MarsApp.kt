@@ -12,7 +12,7 @@ class MarsApp : Application(), AnkoLogger {
         private var initializer : (()-> MarsApp)? = null
         val instance by lazy { requireNotNull(initializer).apply{ initializer = null }()  }
         @JvmStatic
-        val BUILD by lazy { app.packageInfo.versionName.substringAfter('-').toUpperCase() }
+        val VERSION by lazy { app.packageInfo.versionName }
     }
 
     init { initializer = { this } }

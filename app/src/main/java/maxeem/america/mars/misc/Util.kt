@@ -7,6 +7,7 @@ import maxeem.america.mars.api.MarsApiService
 
 object Util {
 
+    @JvmStatic
     fun fromHtml(s: String) = HtmlCompat.fromHtml(s, HtmlCompat.FROM_HTML_MODE_COMPACT)
 
     fun filterToTab(filter: MarsApiService.Filter) = when(filter) {

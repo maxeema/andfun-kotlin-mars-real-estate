@@ -23,16 +23,15 @@
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/col_toolbar"
-                app:expandedTitleTextAppearance="@style/ExpandedTitleTextAppearance"
-                app:collapsedTitleTextAppearance="@style/CollapsedTitleTextAppearance"
+                app:expandedTitleTextAppearance="?textAppearanceHeadline4"
+                app:collapsedTitleTextAppearance="?textAppearanceHeadline2"
                 app:title="@{ @string/display_type(model.isRental ? @string/type_rent : @string/type_sale) }"
+                tools:title="@string/tab_sale"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                app:expandedTitleGravity="bottom"
-                app:expandedTitleMarginStart="16dp"
-                app:expandedTitleMarginBottom="20dp"
-                app:collapsedTitleGravity="start"
-                app:contentScrim="@color/appbar_scrim"
+                app:expandedTitleGravity="top|end"
+                app:collapsedTitleGravity="center"
+                app:contentScrim="@color/scrim"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
                 <ImageView
@@ -46,24 +45,25 @@
                     tools:src="@tools:sample/backgrounds/scenic" />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/demo"
+                    android:id="@+id/id"
+                    propertyId="@{ model.property }"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{ maxeem.america.mars.MarsApp.BUILD }"
-                    tools:text="DEMO"
-                    android:textColor="@android:color/black"
-                    android:alpha=".5"
-                    android:layout_marginEnd="16dp"
+                    android:layout_gravity="start|bottom"
+                    android:layout_marginStart="16dp"
                     android:layout_marginBottom="8dp"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-                    android:layout_gravity="end|center_vertical"
-                    app:layout_collapseMode="pin"/>
+                    android:textAppearance="?textAppearanceHeadline5"
+                    app:layout_collapseMode="pin"
+                    app:textAllCaps="true"
+                    tools:text="#424914" />
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    app:layout_collapseMode="pin" />
+                    android:paddingTop="8dp"
+                    app:layout_collapseMode="pin"
+                    app:navigationIcon="?homeAsUpIndicator" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -97,8 +97,8 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    textHtml="@{ model.isRental ? @string/display_price_monthly_rental(model.price/10000) : @string/display_price(model.price) }"
-                    android:textColor="@color/primary"
+                    textHtml="@{ model.isRental ? @string/display_price_monthly_rental(model.price/10000, @color/date ) : @string/display_price(model.price) }"
+                    android:textColor="@color/money"
                     app:autoSizeTextType="uniform"
                     tools:text="$100,000" />
 
@@ -131,11 +131,11 @@
                     textHtml="@{ model.description }"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="100dp"
                     android:padding="16dp"
+                    android:textAppearance="?textAppearanceBody1"
                     android:textColor="@color/description"
-                    android:textSize="@dimen/text"
-                    tools:text="@tools:sample/lorem/random"
-                    android:layout_marginBottom="100dp"/>
+                    tools:text="@tools:sample/lorem/random" />
 
             </androidx.core.widget.NestedScrollView>
 
