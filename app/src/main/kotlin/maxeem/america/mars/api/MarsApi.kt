@@ -15,6 +15,6 @@ object MarsApi {
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
 
-    val retrofitService : MarsApiService by lazy { retrofit.create(MarsApiService::class.java) }
+    val service : MarsApiService by lazy { retrofit.create(MarsApiService::class.java) }
 
 }

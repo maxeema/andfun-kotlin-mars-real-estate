@@ -6,14 +6,15 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import maxeem.america.mars.BuildConfig
-import maxeem.america.mars.api.MarsApi
 import maxeem.america.mars.api.MarsApiService
 import maxeem.america.mars.api.MarsApiStatus
 import maxeem.america.mars.api.MarsProperty
 import maxeem.america.mars.misc.*
 import org.jetbrains.anko.info
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
-class ListingModel : BaseModel() {
+class ListingModel : BaseModel(), KoinComponent {
 
     val properties = MutableLiveData<List<MarsProperty>?>().asImmutable()
 
@@ -26,6 +27,8 @@ class ListingModel : BaseModel() {
 
     private var job : Job? = null
 
+    private val mars : MarsApiService by inject()
+
     init {
         info("$hash $timeMillis init")
         retrieve(Conf.filter)
@@ -35,7 +38,7 @@ class ListingModel : BaseModel() {
         status.asMutable().value = MarsApiStatus.Loading
         statusEvent.asMutable().value = status.value
         runCatching {
-            val res = MarsApi.retrofitService.getPropertiesAsync(filter.value).await()
+            val res = mars.getPropertiesAsync(filter.value).await()
             if (BuildConfig.DEBUG)
                 println("filter: $filter, result: $res")
             properties.asMutable().value = res
