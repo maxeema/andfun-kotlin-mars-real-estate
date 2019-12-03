@@ -91,7 +91,7 @@ class ListingFragment : BaseFragment() {
         }
         binding.error.onClick { fetch() }
         binding.tabs.setOnNavigationItemSelectedListener { fetch(it.itemId) }
-        binding.tabs.setOnNavigationItemReselectedListener { /*ingore re-selecting */ }
+        binding.tabs.setOnNavigationItemReselectedListener { /*ignore re-selecting */ }
 
         return binding.root
     }
