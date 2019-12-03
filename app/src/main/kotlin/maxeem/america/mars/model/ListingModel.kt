@@ -25,8 +25,7 @@ class ListingModel : BaseModel(), KoinComponent {
     val hasData  = status.map { it is MarsApiStatus.Success }
     val hasError = status.map { it is MarsApiStatus.Error }
 
-    val statusEvent = MutableLiveData<MarsApiStatus?>().asImmutable()
-    fun consumeStatusEvent() { statusEvent.asMutable().value = null }
+    val statusEvent = status.map { Consumable(it) }
 
     private var jobInfo : JobInfo? = null
 
@@ -46,7 +45,6 @@ class ListingModel : BaseModel(), KoinComponent {
         viewModelScope.launch {
             jobInfo = JobInfo(this as Job, filter)
             status.asMutable().value = MarsApiStatus.Loading
-            statusEvent.asMutable().value = status.value
             runCatching {
                 val res = mars.getPropertiesAsync(filter.value).await()
                 if (BuildConfig.DEBUG)
@@ -59,7 +57,6 @@ class ListingModel : BaseModel(), KoinComponent {
                 properties.asMutable().value = null
                 status.asMutable().value = MarsApiStatus.Error.of(err)
             }
-            statusEvent.asMutable().value = status.value
         }.invokeOnCompletion {
             println("completed: $this")
         }

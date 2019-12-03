@@ -73,11 +73,10 @@ class ListingFragment : BaseFragment() {
             info("observe properties?.size: ${properties?.size}")
             properties ?: return@observe
         }
-        model.statusEvent.observe(viewLifecycleOwner) { status ->
-            info("observe statusEvent: $status")
-            status ?: return@observe
-            model.consumeStatusEvent()
-            if (status == MarsApiStatus.Loading)
+        model.statusEvent.observe(viewLifecycleOwner) {
+            info("observe statusEvent: $it")
+            val status = it.consume() ?: return@observe
+            if (status != MarsApiStatus.Loading)
                 return@observe
             viewOwner?.lifecycleScope?.launch {
                 delay(500)
