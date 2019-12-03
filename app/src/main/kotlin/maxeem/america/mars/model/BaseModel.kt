@@ -8,12 +8,8 @@ import org.jetbrains.anko.info
 
 open class BaseModel : ViewModel(), AnkoLogger {
 
-    protected var isCleared = false
-
-    override fun onCleared() {
-        super.onCleared()
+    override fun onCleared() { super.onCleared()
         info("$hash $timeMillis onCleared")
-        isCleared = true
     }
 
 }

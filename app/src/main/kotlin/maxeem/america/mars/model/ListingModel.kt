@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import maxeem.america.mars.BuildConfig
 import maxeem.america.mars.api.MarsApiService
@@ -13,6 +14,8 @@ import maxeem.america.mars.misc.*
 import org.jetbrains.anko.info
 import org.koin.core.KoinComponent
 import org.koin.core.inject
+
+private data class JobInfo(val job: Job, val filter: MarsApiService.Filter)
 
 class ListingModel : BaseModel(), KoinComponent {
 
@@ -25,7 +28,7 @@ class ListingModel : BaseModel(), KoinComponent {
     val statusEvent = MutableLiveData<MarsApiStatus?>().asImmutable()
     fun consumeStatusEvent() { statusEvent.asMutable().value = null }
 
-    private var job : Job? = null
+    private var jobInfo : JobInfo? = null
 
     private val mars : MarsApiService by inject()
 
@@ -34,31 +37,32 @@ class ListingModel : BaseModel(), KoinComponent {
         retrieve(Conf.filter)
     }
 
-    private fun retrieveMarsRealEstateProperties(filter: MarsApiService.Filter) = viewModelScope.launch {
-        status.asMutable().value = MarsApiStatus.Loading
-        statusEvent.asMutable().value = status.value
-        runCatching {
-            val res = mars.getPropertiesAsync(filter.value).await()
-            if (BuildConfig.DEBUG)
-                println("filter: $filter, result: $res")
-            properties.asMutable().value = res
-            status.asMutable().value = MarsApiStatus.Success
-        }.onFailure { err ->
-            properties.asMutable().value = null
-            status.asMutable().value = MarsApiStatus.Error.of(err)
-        }
-        statusEvent.asMutable().value = status.value
-    }.apply {
-        job = this
-        invokeOnCompletion {
-            if (this == job)
-                job = null
-        }
-    }
-
     fun retrieve(filter: MarsApiService.Filter) {
-        if (!isCleared)
-            retrieveMarsRealEstateProperties(filter)
+        jobInfo?.takeUnless { it.job.isCompleted }?.let {
+            if (it.filter == filter)
+                return@retrieve
+            it.job.cancel()
+        }
+        viewModelScope.launch {
+            jobInfo = JobInfo(this as Job, filter)
+            status.asMutable().value = MarsApiStatus.Loading
+            statusEvent.asMutable().value = status.value
+            runCatching {
+                val res = mars.getPropertiesAsync(filter.value).await()
+                if (BuildConfig.DEBUG)
+                    println("filter: $filter, result size: ${res.size}")
+                if (!isActive)
+                    return@launch
+                properties.asMutable().value = res
+                status.asMutable().value = MarsApiStatus.Success
+            }.onFailure { err ->
+                properties.asMutable().value = null
+                status.asMutable().value = MarsApiStatus.Error.of(err)
+            }
+            statusEvent.asMutable().value = status.value
+        }.invokeOnCompletion {
+            println("completed: $this")
+        }
     }
 
 }
