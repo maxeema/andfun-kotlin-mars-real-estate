@@ -8,10 +8,13 @@ import android.view.ViewGroup
 import androidx.annotation.MenuRes
 import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import maxeem.america.mars.R
 import maxeem.america.mars.adapter.MarsPropertiesAdapter
 import maxeem.america.mars.api.MarsApiStatus
@@ -76,11 +79,14 @@ class ListingFragment : BaseFragment() {
             model.consumeStatusEvent()
             if (status == MarsApiStatus.Loading)
                 return@observe
-            viewOwner?.delayed(500) {
-                busy.set(false)
-                binding.refresh.isRefreshing = false
-                binding.refresh.isEnabled = true
-                binding.appbar.setExpanded(true)
+            viewOwner?.lifecycleScope?.launch {
+                delay(500)
+                viewOwner?.lifecycleScope?.launchWhenStarted {
+                    busy.set(false)
+                    binding.refresh.isRefreshing = false
+                    binding.refresh.isEnabled = true
+                    binding.appbar.setExpanded(true)
+                }
             }
         }
         binding.error.onClick { fetch() }
@@ -96,9 +102,12 @@ class ListingFragment : BaseFragment() {
         busy.set(true)
         Conf.filter = Util.tabToFilter(tab)
         (binding.recycler.adapter as MarsPropertiesAdapter).submitList(emptyList())
-        viewLifecycleOwner.delayed(300) {
+        viewOwner?.lifecycleScope?.launch {
+            delay(300)
             binding.recycler.itemAnimator?.isRunning {
-                viewOwner?.doOnLifecycle { model.retrieve(Conf.filter) }
+                viewOwner?.lifecycleScope?.launchWhenStarted {
+                    model.retrieve(Conf.filter)
+                }
             }
         }
         return true
