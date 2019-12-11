@@ -43,7 +43,6 @@ class ListingModel : BaseModel(), KoinComponent {
             it.job.cancel()
         }
         viewModelScope.launch {
-            jobInfo = JobInfo(this as Job, filter)
             status.asMutable().value = MarsApiStatus.Loading
             runCatching {
                 val res = mars.getPropertiesAsync(filter.value).await()
@@ -57,8 +56,11 @@ class ListingModel : BaseModel(), KoinComponent {
                 properties.asMutable().value = null
                 status.asMutable().value = MarsApiStatus.Error.of(err)
             }
-        }.invokeOnCompletion {
-            println("completed: $this")
+        }.apply {
+            jobInfo = JobInfo(this, filter)
+            invokeOnCompletion {
+                println("completed: $this")
+            }
         }
     }
 
